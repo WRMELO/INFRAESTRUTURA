@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  jupyter-gpu:
+    image: jupyter/tensorflow-notebook:latest
+    deploy:
+      placement:
+        constraints:
+          - node.labels.gpu == true
+    ports:
+      - "8889:8888"  # Usamos 8889 para evitar conflito com o contêiner fora do Swarm
+    volumes:
+      - notebooks:/home/jovyan/work  # Volume gerenciado pelo Docker
+    networks:
+      - ds_network
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - GRANT_SUDO=yes
+      - NB_UID=1000
+      - NB_GID=100
+
+volumes:
+  notebooks:  # Declaração do volume gerenciado
+
+networks:
+  ds_network:
+    external: true
