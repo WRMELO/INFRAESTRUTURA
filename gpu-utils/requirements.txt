@@ -1,0 +1,2 @@
+gpustat
+nvidia-ml-py3
