@@ -1,0 +1,46 @@
+{
+  "name": "EDA Pipeline",
+  "dockerComposeFile": "dockerfiles/docker-compose.yml",
+  "service": "jupyter-cpu",
+  "workspaceFolder": "/home/jovyan/work",
+
+  // Instala o Git via feature oficial
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+
+  // Tudo que é específico ao VS Code vai aqui:
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-cell-tags",
+        "ms-toolsai.jupyter-renderers",
+        "ms-toolsai.jupyter-variable-viewer",
+        "vlad-stirbu.vscode-mermaid-preview",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens"
+      ],
+      "settings": {
+        // não restaura terminais antigos
+        "terminal.integrated.enablePersistentSessions": false,
+        // abre notebooks no modo Jupyter
+        "workbench.editorAssociations": {
+          "*.ipynb": "jupyter-notebook"
+        },
+        // Python
+        "python.defaultInterpreterPath": "/opt/conda/bin/python",
+        "python.formatting.provider": "black",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.linting.flake8Enabled": true,
+        // Mermaid
+        "files.associations": {
+          "*.mmd": "mermaid"
+        }
+      }
+    }
+  }
+}

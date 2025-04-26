@@ -1,0 +1,160 @@
+version: '3.8'
+
+networks:
+  eda_net:
+    driver: overlay
+
+volumes:
+  db_data:
+  minio_data:
+
+services:
+
+  database-services:
+    image: eda_database-services:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: senhasegura
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  minio:
+    image: eda_minio:latest
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: senhasegura
+    volumes:
+      - minio_data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  jupyter-cpu:
+    image: eda_jupyter-cpu:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - /home/wrm/datascience/projects:/home/jovyan/work
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  jupyter-gpu:
+    image: eda_jupyter-gpu:latest
+    ports:
+      - "8889:8888"
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.gpu == true
+
+  gpu-utils:
+    image: eda_gpu-utils:latest
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.gpu == true
+
+  api-gateway:
+    image: eda_api-gateway:latest
+    ports:
+      - "8000:8000"
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  data-processing:
+    image: eda_data-processing:latest
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  data-visualization:
+    image: eda_data-visualization:latest
+    ports:
+      - "8050:8050"
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  llm-services:
+    image: eda_llm-services:latest
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  ml-training:
+    image: eda_ml-training:latest
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  vector-database:
+    image: eda_vector-database:latest
+    ports:
+      - "8200:8200"
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  web-services:
+    image: eda_web-services:latest
+    ports:
+      - "80:80"
+    networks:
+      - eda_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
