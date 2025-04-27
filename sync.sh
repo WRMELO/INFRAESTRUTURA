@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+echo "=== Sync run: $(date) ==="
 # Sincronização automática do repositório INFRAESTRUTURA
 
 cd /home/wrm/INFRAESTRUTURA
