@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dados locais e resultados
+/data/
+/results/
+*.log
+
+# Docker overrides e backups
+*.save
+
+# VS Code e Dev Containers
+.vscode/
+.devcontainer/
+
+# Arquivos pessoais
+arquivos-pessoais/
