@@ -1,0 +1,19 @@
+flowchart TD
+  subgraph Cliente
+    GDrive[Google Drive / OneDrive / Dropbox]
+  end
+  subgraph Captura
+    A[Serviço de Poll/Webhook] --> B[Download & Valid. Básica]
+  end
+  subgraph RAW
+    B --> C[Upload em raw-data/<project>/<date>/]
+    C --> D[raw.data_files + metadados]
+  end
+  subgraph STAGING
+    D --> E[staging_process.py]
+    E --> F[staging.processed_data + audit_log]
+  end
+  subgraph CURATED
+    F --> G[curated_process.py]
+    G --> H[curated.data_curated + audit_log]
+  end
