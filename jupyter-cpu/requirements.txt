@@ -1,5 +1,27 @@
+# Jupyter e interatividade
 jupyterlab
 ipywidgets
+
+# Data wrangling & análise
 pandas
 numpy
+scipy
+matplotlib
+seaborn
 scikit-learn
+statsmodels
+plotly
+
+# Ingestão & storage
+minio                # SDK para MinIO/S3
+sqlalchemy           # ORM / conexões genéricas
+psycopg2-binary      # driver PostgreSQL
+
+# Leituras de planilhas
+openpyxl             # xlsx
+xlrd                 # xls
+
+# Google Drive API
+google-api-python-client
+google-auth-oauthlib
+google-auth-httplib2
