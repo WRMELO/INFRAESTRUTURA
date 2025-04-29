@@ -36,9 +36,15 @@ def process_object(path: str) -> str:
 
     # Extrai apenas o nome do arquivo para file_name
     file_name = os.path.basename(path)
+    # Determina a extensão do arquivo e classifica apenas certas extensões como dados
+
+    ext = os.path.splitext(file_name.lower())[1]
+
+    data_exts = {".csv", ".parquet", ".xls", ".xlsx"}
+
+    category = "data" if ext in data_exts else "info"
     # Classifica o arquivo como dado ou informação
 
-    category = "data" if file_name.lower().endswith((".csv",".parquet",".xls",".xlsx")) else "info"
 
     # Insere metadados incluindo file_name (coluna NOT NULL)
     with engine.begin() as conn:
