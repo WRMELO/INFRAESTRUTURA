@@ -22,7 +22,7 @@ services:
       JUPYTER_TOKEN: "senhasegura"
     volumes:
       - /home/wrm/INFRAESTRUTURA:/home/jovyan/work
-      - /home/wrm/.config/rclone:/home/jovyan/.config/rclone:ro
+      - /home/wrm/.config/rclone:/home/jovyan/.config/rclone
       - /home/wrm/.config/drive-ingest:/home/jovyan/.config/drive-ingest:ro
     deploy:
       replicas: 1
