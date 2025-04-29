@@ -38,7 +38,7 @@ def process_object(path: str) -> str:
     file_name = os.path.basename(path)
     # Classifica o arquivo como dado ou informação
 
-    category = "data" if file_name.lower().endswith((".csv",".parquet")) else "info"
+    category = "data" if file_name.lower().endswith((".csv",".parquet",".xls",".xlsx")) else "info"
 
     # Insere metadados incluindo file_name (coluna NOT NULL)
     with engine.begin() as conn:
