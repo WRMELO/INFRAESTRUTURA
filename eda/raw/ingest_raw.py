@@ -36,18 +36,21 @@ def process_object(path: str) -> str:
 
     # Extrai apenas o nome do arquivo para file_name
     file_name = os.path.basename(path)
+    # Classifica o arquivo como dado ou informação
+
+    category = "data" if file_name.lower().endswith((".csv",".parquet")) else "info"
 
     # Insere metadados incluindo file_name (coluna NOT NULL)
     with engine.begin() as conn:
         conn.execute(
             text(
                 """
-                INSERT INTO raw.data_files (object_path, file_name, checksum)
-                VALUES (:path, :fname, :cs)
+                INSERT INTO raw.data_files (object_path, file_name, checksum, category)
+                VALUES (:path, :fname, :cs, :category)
                 ON CONFLICT (checksum) DO NOTHING
                 """
             ),
-            {"path": path, "fname": file_name, "cs": checksum}
+            {"path": path, "fname": file_name, "cs": checksum, "category": category}
         )
     return checksum
 
