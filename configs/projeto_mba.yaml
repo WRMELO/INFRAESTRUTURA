@@ -1,0 +1,5 @@
+drop_empty: true
+date_columns:
+  - dt_venda
+  - dt_pagamento
+flatten_field: detalhes_produto
