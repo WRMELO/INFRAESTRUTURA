@@ -22,6 +22,8 @@ services:
       JUPYTER_TOKEN: "senhasegura"
     volumes:
       - /home/wrm/INFRAESTRUTURA:/home/jovyan/work
+      - /home/wrm/.config/rclone:/home/jovyan/.config/rclone:ro
+      - /home/wrm/.config/drive-ingest:/home/jovyan/.config/drive-ingest:ro
     deploy:
       replicas: 1
       placement:
@@ -37,8 +39,6 @@ services:
       JUPYTER_ENABLE_LAB: "yes"
       JUPYTER_TOKEN: "senhasegura"
     volumes:
-      - /home/wrm/.config/rclone:/home/jovyan/.config/rclone:ro
-      - /home/wrm/.config/drive-ingest:/home/jovyan/.config/drive-ingest:ro
       - /home/wrm/INFRAESTRUTURA:/home/jovyan/work
     deploy:
       replicas: 1
