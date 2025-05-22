@@ -1,150 +1,160 @@
-# Resumo Completo do Processo EDA
 
-Este documento descreve toda a configuração e os componentes do pipeline de EDA implementado no repositório **`INFRAESTRUTURA`**, incluindo containers, scripts, notebooks e orquestração via Docker Swarm.
+# 📦 Projeto: **Infraestrutura de Dados e IA – WRMELO**
 
----
+## 🚀 **Objetivo**
 
-## 1. Estrutura do Repositório
+Este repositório define uma **infraestrutura completa de dados e inteligência artificial**, baseada em containers Docker, operando em rede, com controle total sobre ingestão, curadoria, versionamento e modelagem de dados, tanto localmente quanto em ambiente de alta performance (Google Colab com GPU T4).
 
-```plaintext
-INFRAESTRUTURA/
-├── .devcontainer/                # Configuração do Dev Container (devcontainer.json)
-├── dockerfiles/                  # Dockerfiles de cada serviço
-│   ├── jupyter-cpu/Dockerfile
-│   ├── jupyter-gpu/Dockerfile
-│   ├── api-gateway/Dockerfile
-│   ├── data-processing/Dockerfile
-│   ├── data-visualization/Dockerfile
-│   ├── database-services/Dockerfile
-│   ├── vector-database/Dockerfile
-│   ├── minio/Dockerfile
-│   ├── ml-training/Dockerfile
-│   ├── llm-services/Dockerfile
-│   └── web-services/Dockerfile
-│   └── docker-compose.yml       # Orquestração Swarm para stack "eda"
-├── eda/                          # Scripts Python de cada etapa do pipeline
-│   ├── raw/
-│   │   └── ingest_raw.py         # Ingestão de arquivos brutos (RAW)
-│   ├── staging/
-│   │   └── staging_process.py    # Processamento raw → staging
-│   └── curated/
-│       └── curated_process.py    # Transformação staging → curated
-├── notebooks/                    # Jupyter Notebooks de orquestração e validação
-│   ├── 01_ingestao_raw.ipynb     # Executa ingest_raw e valida RAW
-│   ├── 02_staging.ipynb          # Executa staging_process e valida staging
-│   ├── 03_curated.ipynb          # Executa curated_process e valida curated
-│   ├── 04_datalake_load.ipynb    # (Próximo) carrega curated → datalake
-│   └── 05_exploracao_eda.ipynb    # Análise exploratória final
-├── README.md                     # Visão geral e instruções iniciais
-└── CHANGELOG.md                  # Histórico de alterações (Unreleased)
+A arquitetura garante:
+
+- 🔗 Governança e rastreabilidade dos dados.
+- 🪣 Armazenamento seguro em Object Storage (MinIO).
+- 🗄️ Controle relacional de metadados (PostgreSQL).
+- 🧠 Logs, estados e pipelines não estruturados (MongoDB).
+- 📈 Pipeline de dados como código.
+- 📦 Infraestrutura como código.
+- 🔥 Integração nativa com Google Drive e Colab para uso de GPUs T4.
+- ✔️ Versionamento total pelo GitHub (`WRMELO/INFRAESTRUTURA`).
+
+## 🏗️ **Arquitetura da Infraestrutura**
+
+### 🔗 **Containers em Rede – Docker Swarm**
+
+| Container                | Função Principal                                     |
+|--------------------------|-------------------------------------------------------|
+| `eda_jupyter-cpu`        | ✅ Desenvolvimento, notebooks, VSCode, ETL, EDA       |
+| `eda_jupyter-gpu`        | ✅ Modelagem local com GPU (opcional)                 |
+| `eda_minio`              | ✅ Object Storage (Data Lake)                         |
+| `eda_database-services`  | ✅ PostgreSQL – Metadados, inventário, controle       |
+| `mongo_mongodb`          | ✅ MongoDB – Logs, execução, estados                  |
+| `eda_data-processing`    | 🚀 Serviços de ETL via API (opcional)                 |
+| `eda_vector-database`    | 🚀 Vetorização, embeddings, IA                        |
+| `eda_llm-services`       | 🚀 Modelos LLM locais (sumarização, embeddings)       |
+| `eda_web-services`       | 🚀 APIs auxiliares, upload/download, microsserviços   |
+| `eda_data-visualization` | 🚀 Dashboards, analytics                              |
+| `eda_api-gateway`        | 🚀 Orquestração e roteamento de APIs                  |
+
+## 🔗 **Pilares da Arquitetura**
+
+- 🪣 **MinIO** → Armazenamento bruto, staging, curado, datasets, modelos.
+- 🗄️ **PostgreSQL** → Governança, unicidade, versionamento, auditoria.
+- 🧠 **MongoDB** → Logs, status, pipelines, dados semi-estruturados.
+- 🔗 **Google Drive** → Transporte para e do Google Colab (T4).
+- 🚀 **GitHub** → Versionamento de toda infraestrutura, notebooks, scripts e SQL.
+
+## 🔥 **Pipeline Completo – Dados → IA**
+
+### 1️⃣ **Captura – Google Drive → Local**
+- Coleta os dados brutos no Drive.
+- Download para `/workspace/eda/raw-data/projeto_x/` (container `eda_jupyter-cpu`).
+
+**Commit Git:**  
+`feat: captura inicial dos dados do Google Drive`
+
+### 2️⃣ **Ingestão RAW**
+- Calcula checksum (`md5`, `sha256`).
+- Verifica unicidade no PostgreSQL (`inventario_dados`).
+- Upload dos arquivos para MinIO (`raw-data/projeto_x/`).
+- Registro dos metadados no PostgreSQL.
+
+**Commit Git:**  
+`feat: ingestão raw com controle de unicidade`
+
+### 3️⃣ **Staging**
+- Leitura do RAW no MinIO.
+- Limpeza, padronização, validação de schemas.
+- Grava staging em MinIO (`staging-data/projeto_x/`).
+- Atualiza inventário em PostgreSQL (`staging_inventario`).
+
+**Commit Git:**  
+`feat: pipeline de staging implementado`
+
+### 4️⃣ **Curadoria**
+- Transformações finais, joins, engenharia de features.
+- Grava dados curados em MinIO (`curated-data/projeto_x/`).
+- Atualiza PostgreSQL (`curated_inventario`).
+
+**Commit Git:**  
+`feat: curadoria dos dados concluída`
+
+### 5️⃣ **Dataset para Modelagem**
+- Cria datasets (`train`, `test`, `validation`).
+- Salva datasets em MinIO (`datasets/projeto_x/`).
+- Exporta para Google Drive se necessário para modelagem no Colab.
+- Atualiza inventário no PostgreSQL (`datasets_inventario`).
+
+**Commit Git:**  
+`feat: geração dos datasets para modelagem`
+
+### 6️⃣ **Modelagem no Colab (T4)**
+- Conecta ao Google Drive.
+- Treina modelos (ML/DL/RL/NLP).
+- Salva modelos e resultados no Drive e/ou MinIO.
+
+**Commit Git:**  
+`feat: pipeline de modelagem no Colab com GPU`
+
+### 7️⃣ **Deploy e Outputs**
+- Armazena modelos, outputs e resultados em:
+   - MinIO (`models/projeto_x/`, `outputs/projeto_x/`).
+   - PostgreSQL (`models_inventario`).
+- Atualiza dashboards (`eda_data-visualization`).
+- Publica APIs (`eda_api-gateway`).
+
+**Commit Git:**  
+`feat: deploy e outputs finalizados`
+
+## 🔐 **Regras de Versionamento – GitHub**
+
+> **Se não está no Git, não existe.**
+
+- Todo notebook, script, SQL ou configuração alterado gera um commit rastreável.
+- Commits são obrigatórios **antes e depois de executar qualquer pipeline relevante.**
+- Toda alteração na estrutura de dados (schema, buckets, workflows) é registrada no Git.
+
+### ✅ **Padrão de Commits**
+- `init:` → Inicialização de estrutura.
+- `feat:` → Novas funcionalidades ou pipelines.
+- `fix:` → Correção de erros.
+- `refactor:` → Refatorações sem alteração de funcionalidades.
+- `docs:` → Atualização da documentação.
+- `release:` → Entrega de versões estáveis.
+
+## 📂 **Estrutura do Repositório**
+
+```
+/infra/               → Docker, network, volumes
+/notebooks/           → Notebooks operacionais
+/scripts/             → Scripts auxiliares (MinIO, Drive, PostgreSQL)
+/sql/                 → Modelagem física dos bancos
+/eda/                 → Dados locais organizados
+/dockerfiles/         → Dockerfiles específicos
+/configs/             → Configurações adicionais
 ```
 
----
+## 🏛️ **Governança de Dados**
 
-## 2. Dev Container
+| Banco      | Função                                            |
+|-------------|---------------------------------------------------|
+| **MinIO**  | Dados brutos, staging, curados, modelos, outputs. |
+| **PostgreSQL** | Inventário, versionamento, controle, auditoria.|
+| **MongoDB**| Logs de execução, pipelines, estados temporários. |
 
-- Baseado em `dockerComposeFile: docker-compose.yml` no `.devcontainer/devcontainer.json`.
-- Serviço **jupyter-cpu** monta todo o diretório raiz em `/home/jovyan/work`.
-- VSC Desktop conecta-se via extensão Remote - Containers, permitindo edição de `.py` e `.ipynb`.
-- Features instaladas: Git, Python, Jupyter, Mermaid, Docker, GitLens etc.
+## 🚦 **Fluxo Operacional**
 
----
-
-## 3. Orquestração Docker Swarm
-
-O arquivo `dockerfiles/docker-compose.yml` define a **stack** `eda` com:
-
-- **Rede**: `default` overlay, `attachable: true` → cria `eda_default` automaticamente.
-- **Volumes nomeados**:
-  - `db_data` para persistir PostgreSQL (`/var/lib/postgresql/data`).
-  - `minio_data` para persistir MinIO (`/data`).
-- **Serviços** (todos `replicated: 1`):
-
-  | Serviço          | Imagem               | Portas       | Placement         |
-  |------------------|----------------------|--------------|-------------------|
-  | api-gateway      | `api-gateway:latest` | `8000:8000`  | manager           |
-  | jupyter-cpu      | `jupyter-cpu:latest` | `8888:8888`  | manager           |
-  | jupyter-gpu      | `jupyter-gpu:latest` | `8889:8888`  | worker            |
-  | data-processing  | `data-processing:latest` | -       | manager           |
-  | data-visualization | `data-visualization:latest` | `8050:8050` | manager        |
-  | database-services | `database-services:latest` | `5432:5432` | manager        |
-  | vector-database  | `vector-database:latest` | `8200:8200` | manager           |
-  | minio            | `minio:latest`         | `9000-9001:9000-9001` | manager |
-  | ml-training      | `ml-training:latest`   | -          | manager           |
-  | llm-services     | `llm-services:latest`  | -          | manager           |
-  | web-services     | `web-services:latest`  | `80:80`    | manager           |
-
-**Redeploy automação**:
-
-```bash
-docker stack rm eda
-docker stack deploy -c dockerfiles/docker-compose.yml eda
+```
+Google Drive → Local → MinIO + PostgreSQL → Staging → Curado → Dataset → Colab (GPU) → Modelagem → Deploy → Outputs
 ```
 
----
+## 🔥 **Conclusão**
 
-## 4. Pipeline de Ingestão e Processamento
+Esta infraestrutura foi projetada para suportar projetos de dados e IA de forma:
 
-### 4.1 RAW (Ingestão)
+- ✅ Robusta
+- ✅ Escalável
+- ✅ Auditável
+- ✅ Documentada
+- ✅ Integradora de ambientes locais e cloud (Colab GPU)
 
-- **Script**: `eda/raw/ingest_raw.py`:
-  - Lista objetos no bucket `raw-data` (MinIO).
-  - Baixa cada arquivo temporariamente, calcula checksum SHA-256.
-  - Extrai `file_name` e armazena `object_path`, `file_name`, `checksum` em `raw.data_files` (Postgres).
-- **Notebook**: `01_ingestao_raw.ipynb`:
-  - Célula única que roda `%run ../eda/raw/ingest_raw.py`.
-  - Validações (amostra e contagem total) e registro em `meta.audit_log`.
-
-### 4.2 STAGING (Processamento)
-
-- **Script**: `eda/staging/staging_process.py`:
-  - Lê `raw.data_files`, recupera objetos no bucket conforme `object_path`.
-  - Aplica transformações de limpeza, tipagem, pivot etc. (configurável).
-  - Grava resultado em `staging.processed_data`.
-  - Insere registro em `meta.audit_log` com `step_name='staging_process'`, `raw_file_id`, `output_location`.
-- **Notebook**: `02_staging.ipynb`:
-  - Executa `%run eda/staging/staging_process.py`.
-  - Validações de amostra, contagem e audit_log (filtra `step_name='staging_process'`).
-
-### 4.3 CURATED (Transformação Final)
-
-- **Script**: `eda/curated/curated_process.py`:
-  - Garante `CREATE SCHEMA IF NOT EXISTS curated`.
-  - Carrega `staging.processed_data` via Pandas.
-  - Permite transformações customizadas (ex.: renomear colunas, conversão de datas, deduplicação).
-  - Grava em `curated.data_curated` (append).
-  - Insere registro em `meta.audit_log` com `step_name='curated_process'`.
-- **Notebook**: `03_curated.ipynb`:
-  - Executa `%run eda/curated/curated_process.py`.
-  - Validações de amostra, contagem e audit_log (filtra `step_name='curated_process'`).
-
-> **Próximos notebooks**:
->
-> - `04_datalake_load.ipynb` para carregar curated → datalake.
-> - `05_exploracao_eda.ipynb` para análise exploratória final.
-
----
-
-## 5. Persistência e Volumes
-
-- **PostgreSQL**: volume `eda_db_data` em `/var/lib/postgresql/data` — mantém tabelas RAW, staging, curated, datalake e meta.
-- **MinIO**: volume `eda_minio_data` em `/data` — mantém buckets e objetos brutos.
-- **Observação**: sem volumes, dados se perdem a cada `docker stack rm`.
-
----
-
-## 6. Configurações Adicionais e Boas Práticas
-
-- **Dependências Python**:
-  - MinIO SDK (`minio`), SQLAlchemy, psycopg2-binary, Pandas.
-  - Instalar via Dockerfile ou `%pip install` no notebook.
-- **Rede**:
-  - Overlay para comunicação entre manager e worker (GPU).
-- **Desenvolvimento**:
-  - Edição de `.py` via VS Code Explorer ou células `# %%` interativas.
-  - Uso de Dev Containers garante consistência de ambiente.
-
----
-
-> **Conclusão**: Com esta arquitetura, temos um pipeline reprodutível, escalável e auditável, do raw ao curated, pronto para downstream em datalake e análises.  
-> Salve este resumo em **`README.md`** ou na documentação central para referência futura.
+## 💡 **Regra Final:**  
+**Pipeline de dados, de ponta a ponta, versionado, rastreável e auditável. Nenhum dado entra, se move ou sai sem controle rigoroso.**
