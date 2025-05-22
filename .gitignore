@@ -1,21 +1,64 @@
+# -----------------------
 # Python
+# -----------------------
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.py[cod]
+*$py.class
 
-# Jupyter
+# -----------------------
+# Jupyter Notebooks
+# -----------------------
 .ipynb_checkpoints/
 
-# Dados locais e resultados
+# -----------------------
+# Dados locais, datasets e resultados
+# -----------------------
 /data/
 /results/
+/output/
+/mongodb_data/
+/minio_data/
+/volumes/
 *.log
+*.tmp
+*.swp
 
-# Docker overrides e backups
+# Arquivos de datasets e modelos
+*.npy
+*.pkl
+*.h5
+*.parquet
+*.csv
+
+# -----------------------
+# Docker
+# -----------------------
 *.save
+docker-compose.override.yml
 
+# -----------------------
 # VS Code e Dev Containers
+# -----------------------
 .vscode/
 .devcontainer/
 
+# -----------------------
+# Arquivos de sincronização e logs auxiliares
+# -----------------------
+sync.log
+sync.sh
+
+# -----------------------
 # Arquivos pessoais
+# -----------------------
 arquivos-pessoais/
+
+# -----------------------
+# Sistema operacional
+# -----------------------
+.DS_Store
+Thumbs.db
+
