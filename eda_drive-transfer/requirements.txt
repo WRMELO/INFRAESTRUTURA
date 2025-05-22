@@ -1,1 +1,2 @@
-gdown
+pydrive2
+tqdm
