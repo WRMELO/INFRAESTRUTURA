@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  eda_drive-transfer:
+    build: .
+    container_name: eda_drive-transfer
+    networks:
+      - eda_default
+    volumes:
+      - ./data:/workspace/eda/raw-data/fiap_dl
+    tty: true
+
+networks:
+  eda_default:
+    external: true
+
