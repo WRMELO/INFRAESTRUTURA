@@ -1,0 +1,66 @@
+version: "3.8"
+
+services:
+  jupyter-cpu:
+    image: jupyter-cpu:latest
+    container_name: jupyter_cpu
+    ports:
+      - "8888:8888"
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      JUPYTER_TOKEN: "senhasegura"
+    volumes:
+      - notebooks_data:/home/jovyan/work
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: senhasegura
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+
+  database-services:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: senhasegura
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  vector-database:
+    image: vector-database:latest
+    container_name: vector_database
+    ports:
+      - "8200:8200"
+    volumes:
+      - vector_data:/app/data
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  notebooks_data:
+  minio_data:
+  db_data:
+  vector_data:
+  mongo_data:
