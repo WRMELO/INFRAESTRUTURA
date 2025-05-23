@@ -2,13 +2,14 @@ FROM jupyter/base-notebook:python-3.10
 
 USER root
 
-# Instalar dependências, rclone e Google Cloud SDK
+# Instalar dependências do sistema, rclone, git e Google Cloud SDK
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         apt-transport-https \
         ca-certificates \
         gnupg \
-        curl && \
+        curl \
+        git && \
     apt-get install -y --no-install-recommends rclone && \
     echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
         > /etc/apt/sources.list.d/google-cloud-sdk.list && \
