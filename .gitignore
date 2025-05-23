@@ -62,3 +62,5 @@ arquivos-pessoais/
 .DS_Store
 Thumbs.db
 
+eda_drive-transfer/client_secrets.json
+docker-archive/dockerfiles/eda_drive-transfer/client_secrets.json
