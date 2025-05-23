@@ -1,0 +1,211 @@
+
+---
+Arquivo: ./dockerfiles/docker-compose.yml
+---
+version: "3.8"
+
+services:
+  # API Gateway
+  api-gateway:
+    image: api-gateway:latest
+    ports:
+      - "8000:8000"
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  # Jupyter Notebook (CPU)
+  jupyter-cpu:
+    image: jupyter-cpu:latest
+    ports:
+      - "8888:8888"
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      JUPYTER_TOKEN: "senhasegura"
+    volumes:
+      - /home/wrm/INFRAESTRUTURA:/home/jovyan/work
+      - /home/wrm/.config/rclone:/home/jovyan/.config/rclone
+      - /home/wrm/.config/drive-ingest:/home/jovyan/.config/drive-ingest:ro
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  # Jupyter Notebook (GPU)
+  jupyter-gpu:
+    image: jupyter-gpu:latest
+    ports:
+      - "8889:8888"
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      JUPYTER_TOKEN: "senhasegura"
+    volumes:
+      - /home/wrm/INFRAESTRUTURA:/home/jovyan/work
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+
+  # Data Processing
+  data-processing:
+    image: data-processing:latest
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  # Data Visualization
+  data-visualization:
+    image: data-visualization:latest
+    ports:
+      - "8050:8050"
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  # PostgreSQL (RAW, META, STAGING, CURATED, DATALAKE)
+  database-services:
+    image: database-services:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: senhasegura
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  # Vector Database (adicionar persistência conforme necessário)
+  vector-database:
+    image: vector-database:latest
+    ports:
+      - "8200:8200"
+    # volumes:
+    #   - vector_data:/path/to/vector/data
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  # MinIO (RAW file store)
+  minio:
+    image: minio:latest
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: senhasegura
+    ports:
+      - "9000-9001:9000-9001"
+    volumes:
+      - minio_data:/data
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  # ML Training (future GPU workloads)
+  ml-training:
+    image: ml-training:latest
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  # LLM Services
+  llm-services:
+    image: llm-services:latest
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  # Web Services (frontend)
+  web-services:
+    image: web-services:latest
+    ports:
+      - "80:80"
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+networks:
+  default:
+    driver: overlay
+    attachable: true
+
+volumes:
+  db_data:
+  minio_data:
+
+
+
+
+---
+Arquivo: ./eda_drive-transfer/docker-compose.yml
+---
+version: '3.9'
+
+services:
+  eda_drive-transfer:
+    build: .
+    container_name: eda_drive-transfer
+    networks:
+      - eda_default
+    volumes:
+      - ./data:/workspace/eda/raw-data/fiap_dl
+    tty: true
+
+networks:
+  eda_default:
+    external: true
+
+
+
+
+---
+Arquivo: ./jupyter-gpu/docker-compose.yml
+---
+version: "3.8"
+
+services:
+  jupyter-gpu:
+    image: jupyter/tensorflow-notebook:latest
+    deploy:
+      placement:
+        constraints:
+          - node.labels.gpu == true
+    ports:
+      - "8889:8888"  # Usamos 8889 para evitar conflito com o contêiner fora do Swarm
+    volumes:
+      - notebooks:/home/jovyan/work  # Volume gerenciado pelo Docker
+    networks:
+      - ds_network
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - GRANT_SUDO=yes
+      - NB_UID=1000
+      - NB_GID=100
+
+volumes:
+  notebooks:  # Declaração do volume gerenciado
+
+networks:
+  ds_network:
+    external: true
