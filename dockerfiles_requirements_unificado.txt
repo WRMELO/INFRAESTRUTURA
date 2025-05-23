@@ -1,0 +1,482 @@
+
+---
+Arquivo: ./api-gateway/requirements.txt
+---
+fastapi
+uvicorn[standard]
+
+
+
+---
+Arquivo: ./api-gateway/Dockerfile
+---
+# Dockerfile base para api-gateway
+# --- api-gateway Dockerfile ---
+FROM python:3.10-slim
+
+# 1) diretório de trabalho
+WORKDIR /app
+
+# 2) dependências
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 3) código da aplicação
+COPY . .
+
+# 4) porta exposta
+EXPOSE 8000
+
+# 5) comando de inicialização
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+
+
+---
+Arquivo: ./jupyter-cpu/requirements.txt
+---
+# Jupyter e interatividade
+jupyterlab
+ipywidgets
+
+# Data wrangling & análise
+pandas
+numpy
+scipy
+matplotlib
+seaborn
+scikit-learn
+statsmodels
+plotly
+
+# Ingestão & storage
+minio                # SDK para MinIO/S3
+sqlalchemy           # ORM / conexões genéricas
+psycopg2-binary      # driver PostgreSQL
+
+# Leituras de planilhas
+openpyxl             # xlsx
+xlrd                 # xls
+
+# Google Drive API
+google-api-python-client
+google-auth-oauthlib
+google-auth-httplib2
+
+
+
+---
+Arquivo: ./jupyter-cpu/Dockerfile
+---
+FROM jupyter/base-notebook:python-3.10
+
+USER root
+
+# Instalar dependências do sistema, rclone, git e Google Cloud SDK
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        apt-transport-https \
+        ca-certificates \
+        gnupg \
+        curl \
+        git && \
+    apt-get install -y --no-install-recommends rclone && \
+    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
+        > /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+        | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg && \
+    apt-get update && \
+    apt-get install -y google-cloud-sdk && \
+    rm -rf /var/lib/apt/lists/*
+
+USER jovyan
+
+WORKDIR /home/jovyan/work
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 8888
+
+CMD ["start-notebook.sh", "--NotebookApp.token=''", "--NotebookApp.allow_origin='*'"]
+
+
+
+---
+Arquivo: ./web-services/requirements.txt
+---
+flask
+requests
+
+
+
+---
+Arquivo: ./web-services/Dockerfile
+---
+# Dockerfile base para web-services
+# Imagem base Python
+FROM python:3.10-slim
+
+# Diretório de trabalho
+WORKDIR /app
+
+# Copia e instala dependências
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia aplicação
+COPY main.py .
+
+# Expõe porta do serviço
+EXPOSE 8003
+
+# Comando padrão
+CMD ["python", "main.py"]
+
+
+
+
+---
+Arquivo: ./eda_drive-transfer/requirements.txt
+---
+pydrive2
+tqdm
+
+
+
+---
+Arquivo: ./eda_drive-transfer/Dockerfile
+---
+# 🔧 Imagem base
+FROM python:3.11-slim
+
+# 🌍 Variáveis de ambiente
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# 🏗️ Diretório de trabalho dentro do container
+WORKDIR /workspace
+
+# 🚀 Copia os arquivos locais para o container
+COPY . /workspace
+
+# 🛠️ Instala dependências
+RUN apt-get update && apt-get install -y \
+    && pip install --upgrade pip \
+    && pip install -r requirements.txt
+
+# 🔥 Comando padrão ao rodar o container
+CMD ["python", "main.py"]
+
+
+
+---
+Arquivo: ./gpu-utils/requirements.txt
+---
+gpustat
+nvidia-ml-py3
+
+
+
+---
+Arquivo: ./gpu-utils/Dockerfile
+---
+# Dockerfile base para gpu-utils
+# --- gpu-utils Dockerfile ---
+FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
+
+# 1) Instalar Python e pip
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+
+# 2) Definir diretório de trabalho
+WORKDIR /app
+
+# 3) Copiar e instalar dependências
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# 4) Copiar utilitários/​scripts para /app
+COPY . .
+
+# 5) Comando padrão: executa script de info GPU
+CMD ["python3", "main.py"]
+
+
+
+
+---
+Arquivo: ./vector-database/requirements.txt
+---
+flask
+numpy
+faiss-cpu
+
+
+
+---
+Arquivo: ./vector-database/Dockerfile
+---
+# Dockerfile base para vector-database
+# Imagem base Python
+FROM python:3.10-slim
+
+# Diretório de trabalho
+WORKDIR /app
+
+# Copia e instala dependências
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia aplicação
+COPY main.py .
+
+# Porta do serviço
+EXPOSE 8002
+
+# Comando padrão
+CMD ["python", "main.py"]
+
+
+
+
+---
+Arquivo: ./minio/requirements.txt
+---
+
+
+
+---
+Arquivo: ./minio/Dockerfile
+---
+FROM minio/minio:latest
+
+# Credenciais
+ENV MINIO_ROOT_USER=admin
+ENV MINIO_ROOT_PASSWORD=senhasegura
+
+# Expor portas da API S3 e do Console
+EXPOSE 9000 9001
+
+ENTRYPOINT ["minio"]
+CMD ["server", "/data", "--console-address", ":9001"]
+
+
+
+---
+Arquivo: ./database-services/Dockerfile
+---
+# Dockerfile base para database-services
+# --- database-services Dockerfile ---
+FROM postgres:15-alpine
+
+# 1) Variáveis de ambiente padrão (pode sobrescrever no compose)
+ENV POSTGRES_USER=ds_user
+ENV POSTGRES_PASSWORD=ds_password
+ENV POSTGRES_DB=ds_database
+
+# 2) (Opcional) scripts de inicialização SQL/DDL
+# Crie um subdiretório initdb/ ao lado se tiver scripts .sql ou .sh
+COPY ./initdb /docker-entrypoint-initdb.d
+
+# 3) Porta do Postgres
+EXPOSE 5432
+
+
+
+
+---
+Arquivo: ./llm-services/requirements.txt
+---
+flask
+pydantic
+requests
+
+
+
+---
+Arquivo: ./llm-services/Dockerfile
+---
+# Dockerfile base para llm-services
+# 1. Imagem base
+FROM python:3.10-slim
+
+# 2. Diretório de trabalho
+WORKDIR /app
+
+# 3. Copia dependências e instala
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 4. Copia o código da aplicação
+COPY main.py .
+
+# 5. Expõe porta e define entrypoint
+EXPOSE 8000
+CMD ["python", "main.py"]
+
+
+
+
+---
+Arquivo: ./jupyter-gpu/requirements.txt
+---
+# repositório extra para pacotes CUDA
+--extra-index-url https://download.pytorch.org/whl/cu118
+
+# Interface
+jupyterlab
+notebook
+ipywidgets
+
+# Dados e ML
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+
+# Deep Learning (GPU-enabled)
+torch==2.0.1+cu118
+torchvision==0.15.2+cu118
+torchaudio==2.0.2
+
+# TensorFlow
+tensorflow
+
+
+
+---
+Arquivo: ./jupyter-gpu/Dockerfile
+---
+# Dockerfile base para jupyter-gpu
+# —————————————————————————————————————
+# Imagem base Jupyter + Python 3.10
+# —————————————————————————————————————
+FROM jupyter/base-notebook:python-3.10
+
+USER root
+
+# Instala pacotes de SO
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      git \
+      curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copia e instala libs Python
+COPY requirements.txt /tmp/
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r /tmp/requirements.txt
+
+USER $NB_UID
+WORKDIR /home/jovyan/work
+
+EXPOSE 8888
+
+# Inicia JupyterLab sem token e acessível em 0.0.0.0
+CMD ["start-notebook.sh", "--NotebookApp.token=''", "--NotebookApp.ip='0.0.0.0'"]
+
+
+
+
+---
+Arquivo: ./ml-training/requirements.txt
+---
+numpy
+pandas
+scikit-learn
+
+
+
+---
+Arquivo: ./ml-training/Dockerfile
+---
+# Imagem base Python
+FROM python:3.10-slim
+
+# Diretório de trabalho
+WORKDIR /app
+
+# Copia dependências e instala
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia aplicação
+COPY main.py .
+
+# Comando padrão
+CMD ["python", "main.py"]
+
+
+
+---
+Arquivo: ./data-visualization/requirements.txt
+---
+dash
+pandas
+plotly
+
+
+
+---
+Arquivo: ./data-visualization/Dockerfile
+---
+# Dockerfile base para data-visualization
+# --- data-visualization Dockerfile ---
+FROM python:3.10-slim
+
+# 1) Diretório de trabalho
+WORKDIR /app
+
+# 2) Instalação das dependências
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 3) Código da aplicação
+COPY . .
+
+# 4) Porta exposta pelo Dash
+EXPOSE 8050
+
+# 5) Comando de inicialização
+CMD ["python", "main.py"]
+
+
+
+
+---
+Arquivo: ./data-processing/requirements.txt
+---
+fastapi
+uvicorn[standard]
+pandas
+numpy
+scikit-learn
+
+
+
+---
+Arquivo: ./data-processing/Dockerfile
+---
+# Dockerfile base para data-processing
+# --- data-processing Dockerfile ---
+FROM python:3.10-slim
+
+# 1) definir diretório de trabalho
+WORKDIR /app
+
+# 2) copiar e instalar dependências
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 3) copiar código da aplicação
+COPY . .
+
+# 4) expor porta para API (ajuste se necessário)
+EXPOSE 8001
+
+# 5) comando de inicialização
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]
+
