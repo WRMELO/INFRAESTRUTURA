@@ -1,4 +1,3 @@
-version: "3.8"
 
 services:
   jupyter-cpu:
@@ -10,7 +9,7 @@ services:
       JUPYTER_ENABLE_LAB: "yes"
       JUPYTER_TOKEN: "senhasegura"
     volumes:
-      - notebooks_data:/home/jovyan/work
+      - /home/wrm/INFRAESTRUTURA:/home/jovyan/work
     restart: unless-stopped
 
   minio:
@@ -40,15 +39,6 @@ services:
       - db_data:/var/lib/postgresql/data
     restart: unless-stopped
 
-  vector-database:
-    image: vector-database:latest
-    container_name: vector_database
-    ports:
-      - "8200:8200"
-    volumes:
-      - vector_data:/app/data
-    restart: unless-stopped
-
   mongo:
     image: mongo:7.0
     container_name: mongo
@@ -58,9 +48,14 @@ services:
       - mongo_data:/data/db
     restart: unless-stopped
 
+  vector-database:
+    image: vector-database:latest
+    container_name: vector_database
+    ports:
+      - "8200:8200"
+    restart: unless-stopped
+
 volumes:
-  notebooks_data:
-  minio_data:
   db_data:
-  vector_data:
+  minio_data:
   mongo_data:
