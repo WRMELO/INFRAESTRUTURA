@@ -2,10 +2,8 @@
 # Python
 # -----------------------
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
 *.py[cod]
+*.pyd
 *$py.class
 
 # -----------------------
@@ -14,30 +12,34 @@ __pycache__/
 .ipynb_checkpoints/
 
 # -----------------------
-# Dados locais, datasets e resultados
+# Dados locais, datasets, montagens e resultados
 # -----------------------
 /data/
 /results/
 /output/
-/mongodb_data/
-/minio_data/
-/volumes/
+/mongodb_data/ # Dados persistentes do MongoDB (se mapeado localmente)
+/minio_data/   # Dados persistentes do MinIO (se mapeado localmente)
+/volumes/      # Diretório genérico para volumes de dados locais não versionados
+gdrive_local_mount/ # Montagem local do Google Drive
+
+# Arquivos de datasets e modelos (geralmente grandes e não versionados)
+# Descomente seletivamente se algum pequeno arquivo de exemplo/configuração for necessário
+*.csv
+*.parquet
+*.pkl
+*.h5
+*.npy
+
+# Logs e arquivos temporários
 *.log
 *.tmp
 *.swp
-
-# Arquivos de datasets e modelos
-*.npy
-*.pkl
-*.h5
-*.parquet
-*.csv
 
 # -----------------------
 # Docker
 # -----------------------
 *.save
-docker-compose.override.yml
+docker-compose.override.yml # Comum para configurações locais de override
 
 # -----------------------
 # VS Code e Dev Containers
@@ -47,12 +49,14 @@ docker-compose.override.yml
 
 # -----------------------
 # Arquivos de sincronização e logs auxiliares
+# (Se estes forem específicos do seu ambiente local e não parte do projeto para outros)
 # -----------------------
 sync.log
 sync.sh
 
 # -----------------------
 # Arquivos pessoais
+# (Boa prática para evitar commits acidentais)
 # -----------------------
 arquivos-pessoais/
 
@@ -62,5 +66,9 @@ arquivos-pessoais/
 .DS_Store
 Thumbs.db
 
+# -----------------------
+# Credenciais e Segredos
+# (Caminhos específicos para arquivos de segredos)
+# -----------------------
 eda_drive-transfer/client_secrets.json
 docker-archive/dockerfiles/eda_drive-transfer/client_secrets.json
