@@ -71,4 +71,4 @@ Thumbs.db
 # (Caminhos específicos para arquivos de segredos)
 # -----------------------
 eda_drive-transfer/client_secrets.json
-docker-archive/dockerfiles/eda_drive-transfer/client_secrets.json
+docker-archive/dockerfiles/eda_drive-transfer/client_secrets.jsonwif-credentials.json

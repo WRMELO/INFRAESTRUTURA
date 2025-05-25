@@ -1,3 +1,4 @@
+version: '3.8'
 
 services:
   jupyter-cpu:
@@ -9,7 +10,7 @@ services:
       JUPYTER_ENABLE_LAB: "yes"
       JUPYTER_TOKEN: "senhasegura"
     volumes:
-      - /home/wrm/INFRAESTRUTURA:/home/jovyan/work
+      - /home/wrm/INFRAESTRUTURA:/home/jovyan/work:rshared # MODIFICAÇÃO APLICADA AQUI
     restart: unless-stopped
 
   minio:
@@ -41,7 +42,10 @@ services:
 
   mongo:
     image: mongo:7.0
-    container_name: mongo
+    container_name: mongo_db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: senhasegura
     ports:
       - "27017:27017"
     volumes:
@@ -53,6 +57,42 @@ services:
     container_name: vector_database
     ports:
       - "8200:8200"
+    restart: unless-stopped
+
+  gdrive-sync:
+    image: rclone/rclone:latest
+    container_name: gdrive_sync_mount
+    privileged: true
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./rclone_config:/config/rclone
+      - ./gdrive_local_mount:/mnt/gdrive:shared
+    command:
+      - mount
+      - "gdrive_remote:"
+      - /mnt/gdrive
+      - --allow-other
+      - --allow-non-empty
+      - --dir-cache-time
+      - 72h
+      - --poll-interval
+      - 15s
+      - --vfs-cache-mode
+      - full
+      - --vfs-cache-max-age
+      - 7d
+      - --vfs-cache-max-size
+      - 50G
+      - --vfs-read-chunk-size
+      - 64M
+      - --vfs-read-chunk-size-limit
+      - "off"
+      - --umask
+      - "002"
+      - --log-level
+      - INFO
     restart: unless-stopped
 
 volumes:
