@@ -11,12 +11,14 @@
             "id": "5b8d8a50e0f037a3",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "protocolo_de_interacao.pdf"
+                "file": "HUB_INFRAESTRUTURA.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-file-text",
-              "title": "protocolo_de_interacao"
+              "icon": "lucide-file",
+              "title": "HUB_INFRAESTRUTURA"
             }
           }
         ]
@@ -164,9 +166,13 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "09970c8cc70ddbce",
+  "active": "5b8d8a50e0f037a3",
   "lastOpenFiles": [
     "pipeline-projeto.md.md",
+    "protocolo-de-interacao.md",
+    "HUB_INFRAESTRUTURA.md",
+    "planoo3.md",
+    "pipeline-notebook-b.md",
     "protocolo_de_interacao.pdf",
     "Welcome.md",
     "pasta sem títu",
