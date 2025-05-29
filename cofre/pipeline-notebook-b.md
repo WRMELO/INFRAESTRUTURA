@@ -138,3 +138,5 @@ Construir um pipeline robusto, auditável e seguro para:
 ---
 
 ## 📜 **Fim do Documento**
+
+![[Pasted image 20250529080549.png]]![[Pasted image 20250529080558.png]]

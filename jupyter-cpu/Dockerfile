@@ -1,32 +1,27 @@
-FROM jupyter/base-notebook:python-3.10
+FROM python:3.10-slim
 
-USER root
+# Evita prompts interativos
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Instalar dependências do sistema, rclone, git, Google Cloud SDK e openssh-client
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        apt-transport-https \
-        ca-certificates \
-        gnupg \
-        curl \
-        git \
-        openssh-client && \
-    apt-get install -y --no-install-recommends rclone && \
-    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
-        > /etc/apt/sources.list.d/google-cloud-sdk.list && \
-    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg \
-        | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg && \
-    apt-get update && \
-    apt-get install -y google-cloud-sdk && \
-    rm -rf /var/lib/apt/lists/*
+# Instala dependências básicas do sistema
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    git \
+    curl \
+    unzip \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-USER jovyan
+# Cria diretório de trabalho
+WORKDIR /workspace
 
-WORKDIR /home/jovyan/work
+# Copia e instala as dependências do projeto
+COPY requirements.txt /tmp/
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
+# Expõe a porta padrão do Jupyter
 EXPOSE 8888
 
-CMD ["start-notebook.sh", "--NotebookApp.token=''", "--NotebookApp.allow_origin='*'"]
+# Comando padrão: inicia Jupyter Lab
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]

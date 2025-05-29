@@ -17,13 +17,12 @@ __pycache__/
 /data/
 /results/
 /output/
-/mongodb_data/ # Dados persistentes do MongoDB (se mapeado localmente)
-/minio_data/   # Dados persistentes do MinIO (se mapeado localmente)
-/volumes/      # Diretório genérico para volumes de dados locais não versionados
-gdrive_local_mount/ # Montagem local do Google Drive
+/mongodb_data/    # Dados persistentes do MongoDB (se mapeado localmente)
+/minio_data/      # Dados persistentes do MinIO (se mapeado localmente)
+/volumes/         # Diretório genérico para volumes de dados locais não versionados
+gdrive_local_mount/  # Montagem local do Google Drive (ex: via rclone mount)
 
 # Arquivos de datasets e modelos (geralmente grandes e não versionados)
-# Descomente seletivamente se algum pequeno arquivo de exemplo/configuração for necessário
 *.csv
 *.parquet
 *.pkl
@@ -39,7 +38,7 @@ gdrive_local_mount/ # Montagem local do Google Drive
 # Docker
 # -----------------------
 *.save
-docker-compose.override.yml # Comum para configurações locais de override
+docker-compose.override.yml  # Override local não versionado
 
 # -----------------------
 # VS Code e Dev Containers
@@ -49,14 +48,12 @@ docker-compose.override.yml # Comum para configurações locais de override
 
 # -----------------------
 # Arquivos de sincronização e logs auxiliares
-# (Se estes forem específicos do seu ambiente local e não parte do projeto para outros)
 # -----------------------
 sync.log
 sync.sh
 
 # -----------------------
 # Arquivos pessoais
-# (Boa prática para evitar commits acidentais)
 # -----------------------
 arquivos-pessoais/
 
@@ -68,7 +65,8 @@ Thumbs.db
 
 # -----------------------
 # Credenciais e Segredos
-# (Caminhos específicos para arquivos de segredos)
 # -----------------------
 eda_drive-transfer/client_secrets.json
-docker-archive/dockerfiles/eda_drive-transfer/client_secrets.jsonwif-credentials.json
+docker-archive/dockerfiles/eda_drive-transfer/client_secrets.json
+wif-credentials.json
+rclone_config/
