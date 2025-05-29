@@ -70,3 +70,4 @@ eda_drive-transfer/client_secrets.json
 docker-archive/dockerfiles/eda_drive-transfer/client_secrets.json
 wif-credentials.json
 rclone_config/
+gdrive_local_mount/
