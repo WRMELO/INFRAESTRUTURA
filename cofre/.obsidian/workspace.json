@@ -11,10 +11,14 @@
             "id": "e1f9088a42a68036",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Visualização em gráfico"
+              "type": "markdown",
+              "state": {
+                "file": "HUB_EDA_PRE-TRATAMENTO.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "HUB_EDA_PRE-TRATAMENTO"
             }
           }
         ]
@@ -164,24 +168,25 @@
   },
   "active": "e1f9088a42a68036",
   "lastOpenFiles": [
-    "HUB_EDA_PRE-TRATAMENTO.md",
+    "resumo_curadoria_chat.md",
+    "resumo_curadoria_pos_b.md",
+    "pipeline-notebook-b.md",
     "HUB_INFRAESTRUTURA.md",
+    "Ponto de retomada EDA e pré-tratamento.md",
+    "HUB_EDA_PRE-TRATAMENTO.md",
+    "resumo_continuacao_chat_curadoria.md",
+    "TEXTO PARA PROMPT INICIAL.md",
+    "PROMPT INICIAL.md",
     "HUB_UTILIDADES.md",
     "Estrutura das tabelas em postegrSQL.md",
-    "TEXTO PARA PROMPT INICIAL.md",
     "Estratégia de EDA e Pré-Tratamento de Dados.md",
-    "Ponto de retomada EDA e pré-tratamento.md",
     "Descrição da INFRA para desenvolvimento do EDA.md",
-    "pipeline-notebook-b.md",
     "git_sincronizacao_registro.md",
     "planoo3.md",
-    "resumo_continuacao_chat_curadoria.md",
-    "resumo_curadoria_pos_b.md",
     "Pasted image 20250529154606.png",
     "Pasted image 20250529074441.png",
     "Pasted image 20250529080558.png",
     "Pasted image 20250529080549.png",
-    "PROMPT INICIAL.md",
     "protocolo_de_interacao.pdf",
     "protocolo-de-interacao.md",
     "Pasted.md",

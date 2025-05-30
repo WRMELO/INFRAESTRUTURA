@@ -4,6 +4,6 @@
 	1. [[Ponto de retomada EDA e pré-tratamento]]
 	2. [[resumo_continuacao_chat_curadoria]]
 	3. [[resumo_curadoria_pos_b]]
-	4. 
+	4. [[resumo_curadoria_chat]]
 . 
    
