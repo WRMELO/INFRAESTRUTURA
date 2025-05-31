@@ -1,5 +1,7 @@
 # Protocolo de Interação e Colaboração com [WILSON] — Versão 2
 
+
+# 0. VOCÊ TEM O COMPROMISSO DE SEGUIR RIGOROSAMENTE ESTE PROCOLO
 ## 1. Objetivo Deste Documento
 
 Este documento define as diretrizes, papéis e melhores práticas para a interação eficaz entre
@@ -22,6 +24,8 @@ requisitos de alto nível ou quando há ambiguidades sobre o resultado final des
 a direção ("o quê" e "para onde"), não o detalhamento técnico ("como").
 * **Validador Funcional:** Avalia se as soluções propostas pela IA atendem aos requisitos
 funcionais do projeto.
+
+NÃO É PARA SUPOR NADA: SE FALTAR INFORMAÇÃO -por exemplo, um campo em uma tabela - PERGUNTE E NÃO USE UMA SOLUÇÃO PADRÃO, PARA NÃO GERAR PROBLEMAS DE INCONSISTENCIAS E NECESSIDADES DE CORREÇÃO.
 
 ### 2.2. IA (Consultor Técnico Especializado)
 

@@ -8,17 +8,17 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e1f9088a42a68036",
+            "id": "c2f1a4aeb6437cd9",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "HUB_INFRAESTRUTURA.md",
+                "file": "HUB_UTILIDADES.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "HUB_INFRAESTRUTURA"
+              "title": "HUB_UTILIDADES"
             }
           }
         ]
@@ -166,40 +166,40 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "e1f9088a42a68036",
+  "active": "c2f1a4aeb6437cd9",
   "lastOpenFiles": [
-    "relatorio_ingestao_storage.md",
-    "HUB_INFRAESTRUTURA.md",
+    "prompt_relatorio_evolutivo.md",
     "HUB_UTILIDADES.md",
-    "pipeline_documentation.md",
+    "historico_pipeline_curadoria.md",
+    "HUB_EDA_PRE-TRATAMENTO.md",
+    "output.png",
+    "TODOS OS CAMPOS DE TODAS AS TABELAS.md",
     "Pasted image 20250529154606.png",
+    "protocolo-de-interacao.md",
     "TEXTO PARA PROMPT INICIAL.md",
+    "Estratégia de EDA e Pré-Tratamento de Dados.md",
+    "Descrição da INFRA para desenvolvimento do EDA.md",
+    "HUB_INFRAESTRUTURA.md",
+    "relatorio_ingestao_storage.md",
+    "pipeline_documentation.md",
     "git_sincronizacao_registro.md",
     "Pasted image 20250529080558.png",
     "Pasted image 20250529080549.png",
     "Pasted image 20250529074441.png",
     "Estrutura das tabelas em postegrSQL.md",
-    "Descrição da INFRA para desenvolvimento do EDA.md",
     "pipeline-notebook-b.md",
     "pipeline-projeto.md.md",
-    "Sem título.md",
     "PROMPT INICIAL.md",
-    "protocolo-de-interacao.md",
-    "HUB_EDA_PRE-TRATAMENTO.md",
     "resumo_curadoria_chat.md",
     "resumo_curadoria_pos_b.md",
     "Ponto de retomada EDA e pré-tratamento.md",
     "resumo_continuacao_chat_curadoria.md",
-    "Estratégia de EDA e Pré-Tratamento de Dados.md",
     "planoo3.md",
     "protocolo_de_interacao.pdf",
     "Pasted.md",
     "imagens para Obisidian.md",
     "Estrutura da tabela reception_audit.png",
     "\"Estrutura.md",
-    "Estrutura.md",
-    "Estrutura_da_tabela_reception_audit.md",
-    "![[Pasted.md",
     "pasta sem títu",
     "Sem título"
   ]
