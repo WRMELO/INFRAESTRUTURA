@@ -5,7 +5,7 @@
 
 O projeto teve início com a construção de uma infraestrutura para ingestão de imagens oriundas de diferentes fontes, com foco em garantir **unicidade dos arquivos**, **registro de metadados** e a preparação para dois tipos de curadoria: leve (pré-processamento técnico) e pesada (análise e refinamento para uso em DL ou RL).
 
-No início, utilizávamos apenas os buckets `recepcao-raw` e `storage-unique`, e a tabela `storage_audit` no PostgreSQL, que controlava os metadados dos arquivos únicos.
+No início, utilizávamos apenas os buckets `reception-raw` e `storage-unique`, e a tabela `storage_audit` no PostgreSQL, que controlava os metadados dos arquivos únicos.
 
 ---
 
@@ -24,7 +24,7 @@ A filosofia era criar um pipeline **modular e auditável**, com ingestão manual
 
 O pipeline foi evoluindo com os seguintes notebooks e fases:
 
-- `a-recepcao-raw.ipynb`: ingestão manual de arquivos do Google Drive para MinIO (bucket `recepcao-raw`) e auditoria inicial (`reception_audit`).
+- `a-reception-raw.ipynb`: ingestão manual de arquivos do Google Drive para MinIO (bucket `reception-raw`) e auditoria inicial (`reception_audit`).
 - `b-storage-movimentacao-unico.ipynb`: validação de unicidade via hash, movimentação para `storage-unique`, e preenchimento da tabela `storage_audit`.
 - `c-curadoria-imagens.ipynb`: criação de vetores para processamento de imagens, e execução da curadoria leve e pesada, com registro em `staging_audit` e `curation_audit`.
 
@@ -53,7 +53,7 @@ Ao longo do caminho, implementamos widgets para seleção de projeto e tipo de c
 
 ## 6. Avanços Conquistados
 
-- Infraestrutura de buckets estável: `recepcao-raw`, `storage-unique`, `staging-unique`, `storage-curated`.
+- Infraestrutura de buckets estável: `reception-raw`, `storage-unique`, `staging-unique`, `storage-curated`.
 - Tabelas PostgreSQL auditáveis e alinhadas com o pipeline: `reception_audit`, `storage_audit`, `staging_audit`, `curation_audit`.
 - Widget de seleção de projeto e tipo de curadoria operacional.
 - Processo de curadoria leve já funcional, com preenchimento automático de auditorias.

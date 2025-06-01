@@ -10,7 +10,7 @@ Este repositório serve como a espinha dorsal da infraestrutura do projeto, orga
 
 - **`notebooks/`**: Contém os notebooks Jupyter responsáveis pelas etapas de ingestão e movimentação de dados.
     
-    - `a-recepcao-raw.ipynb`: Notebook que realiza a cópia dos arquivos do Google Drive para o bucket MinIO `recepcao-raw` e registra auditorias na tabela `reception_audit`.
+    - `a-reception-raw.ipynb`: Notebook que realiza a cópia dos arquivos do Google Drive para o bucket MinIO `reception-raw` e registra auditorias na tabela `reception_audit`.
         
     - `b-storage-movimentacao-unico.ipynb`: Notebook que assegura a unicidade dos arquivos e projetos, atualizando as tabelas `projetos` e `arquivos`.
         
@@ -47,7 +47,7 @@ Este repositório serve como a espinha dorsal da infraestrutura do projeto, orga
 
 ## Fluxo de Dados
 
-1. **Ingestão**: Arquivos são copiados do Google Drive para o bucket MinIO `recepcao-raw` utilizando o notebook `a-recepcao-raw.ipynb`.
+1. **Ingestão**: Arquivos são copiados do Google Drive para o bucket MinIO `reception-raw` utilizando o notebook `a-reception-raw.ipynb`.
     
 2. **Auditoria**: Informações sobre os arquivos recebidos são registradas na tabela `reception_audit`.
     

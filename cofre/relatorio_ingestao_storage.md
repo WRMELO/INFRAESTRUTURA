@@ -6,7 +6,7 @@ O pipeline atual é baseado em três etapas centrais, cada uma refletida por um 
 
 | Etapa | Notebook | Função Principal |
 |-------|----------|------------------|
-| **Ingestão** | `a-recepcao-raw.ipynb` | Receber arquivos do Google Drive, enviar ao MinIO (`reception-raw`) e registrar auditoria em `reception_audit` |
+| **Ingestão** | `a-reception-raw.ipynb` | Receber arquivos do Google Drive, enviar ao MinIO (`reception-raw`) e registrar auditoria em `reception_audit` |
 | **Movimentação única** | `b-storage-movimentacao-unico.ipynb` | Copiar apenas arquivos únicos para `storage-unique`, com prefixo de projeto, e registrar em `storage_audit` |
 | **Curadoria (a seguir)** | `c-curadoria-imagens.ipynb` | Tratar imagens com resize e padronização, salvar no bucket `curated-unique` e auditar em `curation_audit` |
 
@@ -29,7 +29,7 @@ O pipeline atual é baseado em três etapas centrais, cada uma refletida por um 
 
 ## 4. ✅ Funções dos notebooks
 
-### 📗 Notebook A — `a-recepcao-raw.ipynb`
+### 📗 Notebook A — `a-reception-raw.ipynb`
 - 🔹 Recebe arquivos da pasta montada do GDrive
 - 🔹 Envia para o bucket `reception-raw`
 - 🔹 Calcula o `hash_sha256`

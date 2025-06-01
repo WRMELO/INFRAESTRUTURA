@@ -19,14 +19,14 @@ Conforme descrito em `Descrição da INFRA para desenvolvimento do EDA.md`:
 ### Diretórios
 
 - `notebooks/`:  
-  - `a-recepcao-raw.ipynb`: recebe arquivos e registra na `reception_audit`.
+  - `a-reception-raw.ipynb`: recebe arquivos e registra na `reception_audit`.
   - `b-storage-movimentacao-unico.ipynb`: valida unicidade e preenche `projetos` e `arquivos`.
 - `cofre/`: armazena documentos técnicos e de planejamento.
 - `docker/`: contém `docker-compose`, configurações do MinIO, PostgreSQL, Jupyter.
 
 ### Serviços Docker
 
-- **MinIO**: Armazenamento de objetos (`recepcao-raw`, outros).
+- **MinIO**: Armazenamento de objetos (`reception-raw`, outros).
 - **PostgreSQL**: Armazenamento de metadados e controle.
 - **Jupyter**: Execução e exploração de notebooks.
 
@@ -38,7 +38,7 @@ Conforme descrito em `Descrição da INFRA para desenvolvimento do EDA.md`:
 
 ### Fluxo Atual
 
-1. **Ingestão**: Google Drive → Bucket `recepcao-raw`.
+1. **Ingestão**: Google Drive → Bucket `reception-raw`.
 2. **Auditoria**: Registro na tabela `reception_audit`.
 3. **Movimentação**: `b-storage-movimentacao-unico.ipynb`.
 4. **Armazenamento Curado**: buckets separados, mantendo nome original.

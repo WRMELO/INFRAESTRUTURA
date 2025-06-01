@@ -17,7 +17,7 @@ O desenvolvimento partiu da necessidade de estruturar um pipeline completo e aud
 
 ## 🧱 Estrutura Inicial (Notebook A e B)
 
-### ✅ `a-recepcao-raw.ipynb`:
+### ✅ `a-reception-raw.ipynb`:
 - Responsável por:
   - Receber os arquivos do GDrive
   - Armazenar em `reception-raw` (MinIO)

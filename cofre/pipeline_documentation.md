@@ -13,7 +13,7 @@ flowchart LR
         A[Arquivos nas pastas dos analistas]
     end
     A -->|rclone sync| B[Bucket **reception‑raw**]
-    B -->|Notebook A - `a-recepcao-raw.ipynb`<br>→ INSERT| C[(Tabela **reception_audit**)]
+    B -->|Notebook A - `a-reception-raw.ipynb`<br>→ INSERT| C[(Tabela **reception_audit**)]
     C & B -->|Notebook B - `b-storage-movimentacao-unico.ipynb`<br>→ COPY| D[Bucket **storage‑unique**]
     D -->|Metadados| E[(Tabela **storage_audit**)]
 ```
@@ -107,7 +107,7 @@ Metadados da **cópia única** (1 linha por arquivo efetivo no bucket de destino
    ```
    *Sem sobrescrever versões anteriores.*
 
-2. **Notebook A – `a-recepcao-raw.ipynb`**  
+2. **Notebook A – `a-reception-raw.ipynb`**  
    * Lista recursiva do bucket.  
    * Calcula SHA‑256 (streaming).  
    * Inserta/ignora (`ON CONFLICT DO NOTHING`) na `reception_audit`.
