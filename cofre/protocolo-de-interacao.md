@@ -75,6 +75,9 @@ O Usuário se compromete a fornecer feedback claro (ex.: "executado com sucesso"
 
 ### 3.2. Fornecimento e Atualização de Código
 
+* **Tecnologia empregada:**  
+Todos os códigos devem ser escritos em Python, tendo como certo que eles devem rodar dentro de um notebook JUPYTER, operando em um VSC, atachado ao container jupyter-cpu.
+Deve ser dados comandos em bash somente se: i) estivermos com ações únicas e que não necessitam serem auditadas; ii) se forem ações únicas e que persistem.
 * **Substituição Completa do Conteúdo:**  
 Ao fornecer ou solicitar modificações em scripts, arquivos de configuração (ex.: `.yml`, `.json`, `.py`), ou células de notebooks, a IA deve **sempre fornecer o código completo e atualizado** do arquivo ou da célula em questão.
 

@@ -8,17 +8,31 @@
         "type": "tabs",
         "children": [
           {
-            "id": "c2f1a4aeb6437cd9",
+            "id": "b54d60c23c5ac8e0",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "HUB_UTILIDADES.md",
+                "file": "Rastreabilidade e Campos Existentes nas tabelas.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "HUB_UTILIDADES"
+              "title": "Rastreabilidade e Campos Existentes nas tabelas"
+            }
+          },
+          {
+            "id": "607206d8d638c084",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "protocolo-de-interacao.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "protocolo-de-interacao"
             }
           }
         ]
@@ -166,40 +180,43 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "c2f1a4aeb6437cd9",
+  "active": "b54d60c23c5ac8e0",
   "lastOpenFiles": [
+    "HUB_EDA_PRE-TRATAMENTO.md",
+    "TEXTO PARA PROMPT INICIAL.md",
     "prompt_relatorio_evolutivo.md",
     "HUB_UTILIDADES.md",
-    "historico_pipeline_curadoria.md",
-    "HUB_EDA_PRE-TRATAMENTO.md",
-    "output.png",
-    "TODOS OS CAMPOS DE TODAS AS TABELAS.md",
-    "Pasted image 20250529154606.png",
     "protocolo-de-interacao.md",
-    "TEXTO PARA PROMPT INICIAL.md",
+    "Rastreabilidade e Campos Existentes nas tabelas.md",
+    "TABELA COM TODOS OS CAMPOS.md",
+    "CAMPOS EM TABELAS.md",
+    "imagem campos em tabelas.png",
+    "Conceito Geral.md",
+    "Pipeline de Ingestão & Governança de Arquivos.md",
     "Estratégia de EDA e Pré-Tratamento de Dados.md",
-    "Descrição da INFRA para desenvolvimento do EDA.md",
     "HUB_INFRAESTRUTURA.md",
-    "relatorio_ingestao_storage.md",
     "pipeline_documentation.md",
-    "git_sincronizacao_registro.md",
+    "Sem título.md",
+    "pipeline_documentation_obsidian_ok(1).md",
+    "pipeline_documentation_obsid ian_ok.md",
+    "pipeline atualização.md",
+    "pipeline_documentation_obsidian_ok.md",
+    "pipeline_documentation_completo_final.md",
+    "relatorio_curadoria_imagens18H26.md",
+    "relatorio_curadoria_imagens.md",
+    "Estrutura das tabelas em postegrSQL.md",
+    "resumo_curadoria_chat.md",
+    "TODOS OS CAMPOS DE TODAS AS TABELAS.md",
+    "relatorio_evolutivo_curadoria 15H46.md",
+    "Pasted image 20250531144341.png",
+    "historico_pipeline_curadoria.md",
+    "output.png",
+    "Pasted image 20250529154606.png",
     "Pasted image 20250529080558.png",
     "Pasted image 20250529080549.png",
     "Pasted image 20250529074441.png",
-    "Estrutura das tabelas em postegrSQL.md",
-    "pipeline-notebook-b.md",
-    "pipeline-projeto.md.md",
-    "PROMPT INICIAL.md",
-    "resumo_curadoria_chat.md",
-    "resumo_curadoria_pos_b.md",
-    "Ponto de retomada EDA e pré-tratamento.md",
-    "resumo_continuacao_chat_curadoria.md",
-    "planoo3.md",
     "protocolo_de_interacao.pdf",
-    "Pasted.md",
-    "imagens para Obisidian.md",
     "Estrutura da tabela reception_audit.png",
-    "\"Estrutura.md",
     "pasta sem títu",
     "Sem título"
   ]

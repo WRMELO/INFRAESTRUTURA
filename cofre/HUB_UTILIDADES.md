@@ -15,6 +15,4 @@ OUTROS DOCUMENTOS
 
 [[protocolo-de-interacao|PROTOCOLO DE INTERAÇÃO]] 
 
-[[Estrutura das tabelas em postegrSQL|ESTRUTURA DAS TABELAS EM POSTEGRE]] 
 
-[[output.png|TODOS OS CAMPOS DE TODAS AS TABELAS]]
