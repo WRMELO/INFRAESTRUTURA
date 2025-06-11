@@ -1,40 +1,47 @@
 {
-  "name": "EDA Pipeline",
-  "dockerComposeFile": "dockerfiles/docker-compose.yml",
+  "name": "Jupyter CPU Development",
+  "dockerComposeFile": "../docker-compose.yml",
   "service": "jupyter-cpu",
-  "workspaceFolder": "/home/jovyan/work",
-
-  "features": {
-    "ghcr.io/devcontainers/features/git:1": {}
-  },
-
+  "workspaceFolder": "/home/wrm",
+  
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-python.python",
         "ms-python.vscode-pylance",
         "ms-toolsai.jupyter",
-        "ms-toolsai.jupyter-cell-tags",
+        "ms-toolsai.jupyter-keymap",
         "ms-toolsai.jupyter-renderers",
-        "ms-toolsai.jupyter-variable-viewer",
-        "vlad-stirbu.vscode-mermaid-preview",
-        "ms-azuretools.vscode-docker",
-        "eamodio.gitlens"
+        "ms-vscode.makefile-tools",
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        "donjayamanne.githistory"
       ],
       "settings": {
-        "terminal.integrated.enablePersistentSessions": false,
-        "workbench.editorAssociations": {
-          "*.ipynb": "jupyter-notebook"
-        },
         "python.defaultInterpreterPath": "/opt/conda/bin/python",
-        "python.formatting.provider": "black",
         "python.linting.enabled": true,
         "python.linting.pylintEnabled": true,
-        "python.linting.flake8Enabled": true,
-        "files.associations": {
-          "*.mmd": "mermaid"
-        }
+        "python.formatting.provider": "black",
+        "python.formatting.blackPath": "/opt/conda/bin/black",
+        "jupyter.askForKernelRestart": false,
+        "files.watcherExclude": {
+          "**/.git/objects/**": true,
+          "**/.git/subtree-cache/**": true,
+          "**/node_modules/**": true
+        },
+        "git.autofetch": true,
+        "git.confirmSync": false
       }
+    }
+  },
+  
+  "postCreateCommand": "echo 'DevContainer ready! Workspace: /home/wrm'",
+  
+  "remoteUser": "root",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
     }
   }
 }

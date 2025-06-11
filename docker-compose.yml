@@ -10,7 +10,10 @@ services:
       JUPYTER_ENABLE_LAB: "yes"
       JUPYTER_TOKEN: "senhasegura"
     volumes:
-      - /home/wrm/INFRAESTRUTURA:/home/jovyan/work:rshared # MODIFICAÇÃO APLICADA AQUI
+      - /home/wrm:/home/wrm
+      - /home/wrm/INFRAESTRUTURA:/home/jovyan/work:rshared 
+      - ~/.ssh:/root/.ssh:ro
+      - ~/.gitconfig:/root/.gitconfig:ro  # ADICIONAL - suas configs do Git
     restart: unless-stopped
 
   minio:

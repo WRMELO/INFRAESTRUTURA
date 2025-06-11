@@ -4,5 +4,6 @@
 [[Rastreabilidade e Campos Existentes nas tabelas]]
 
 
-. 
+. [[HIST_CURADORIA_NUMERICA]]
+
    

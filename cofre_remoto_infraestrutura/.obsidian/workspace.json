@@ -4,38 +4,39 @@
     "type": "split",
     "children": [
       {
-        "id": "23044eccb9ec3b42",
+        "id": "1ba0a1aad9337bbf",
         "type": "tabs",
         "children": [
           {
-            "id": "b54d60c23c5ac8e0",
+            "id": "d4e787bb7dad2500",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "TEXTO PARA PROMPT INICIAL.md",
+                "file": "HUB_INFRAESTRUTURA.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "TEXTO PARA PROMPT INICIAL"
+              "title": "HUB_INFRAESTRUTURA"
             }
           },
           {
-            "id": "607206d8d638c084",
+            "id": "949af888b31e0857",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "protocolo-de-interacao.md",
+                "file": "CRIAÇÃO DO .DEVCONTAINER.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "protocolo-de-interacao"
+              "title": "CRIAÇÃO DO .DEVCONTAINER"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -171,7 +172,6 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "markdown-importer:Abrir importador Markdown": false,
       "switcher:Abrir a troca rápida": false,
       "graph:Abrir visualização em gráfico": false,
       "canvas:Criar novo canvas": false,
@@ -180,36 +180,36 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "b54d60c23c5ac8e0",
+  "active": "949af888b31e0857",
   "lastOpenFiles": [
-    "PROMPT INICIAL.md",
-    "prompt_relatorio_evolutivo.md",
-    "relatorio_evolucao_curadoria_numerica.md",
-    "HUB_UTILIDADES.md",
-    "Estratégia de EDA e Pré-Tratamento de Dados.md",
-    "Rastreabilidade e Campos Existentes nas tabelas.md",
-    "sedjAaW9y",
-    "HUB_EDA_PRE-TRATAMENTO.md",
-    "TEXTO PARA PROMPT INICIAL.md",
-    "protocolo-de-interacao.md",
-    "TABELA COM TODOS OS CAMPOS.md",
-    "CAMPOS EM TABELAS.md",
-    "imagem campos em tabelas.png",
-    "Conceito Geral.md",
-    "Pipeline de Ingestão & Governança de Arquivos.md",
+    "CRIAÇÃO DO .DEVCONTAINER.md",
     "HUB_INFRAESTRUTURA.md",
-    "pipeline_documentation.md",
-    "Sem título.md",
-    "pipeline_documentation_obsidian_ok(1).md",
-    "pipeline_documentation_obsid ian_ok.md",
-    "pipeline atualização.md",
-    "pipeline_documentation_obsidian_ok.md",
-    "pipeline_documentation_completo_final.md",
-    "relatorio_curadoria_imagens18H26.md",
-    "relatorio_curadoria_imagens.md",
-    "Estrutura das tabelas em postegrSQL.md",
+    "TEXTO PARA PROMPT INICIAL.md",
+    "TABELA COM TODOS OS CAMPOS.md",
+    "resumo_curadoria_pos_b.md",
     "resumo_curadoria_chat.md",
-    "TODOS OS CAMPOS DE TODAS AS TABELAS.md",
+    "resumo_continuacao_chat_curadoria.md",
+    "relatorio_ingestao_storage.md",
+    "relatorio_evolutivo_curadoria 15H46.md",
+    "relatorio_evolucao_curadoria_numerica.md",
+    "relatorio_curadoria_imagens18H26.md",
+    "Rastreabilidade e Campos Existentes nas tabelas.md",
+    "protocolo-de-interacao.md",
+    "prompt_relatorio_evolutivo.md",
+    "PROMPT INICIAL.md",
+    "Ponto de retomada EDA e pré-tratamento.md",
+    "pipeline_documentation.md",
+    "pipeline_documentation_obsid ian_ok.md",
+    "Pipeline de Ingestão & Governança de Arquivos.md",
+    "pipeline atualização.md",
+    "imagem campos em tabelas.png",
+    "HUB_UTILIDADES.md",
+    "HUB_EDA_PRE-TRATAMENTO.md",
+    "historico_pipeline_curadoria.md",
+    "git_sincronizacao_registro.md",
+    "Desenvolvimento do .devcontainer.md",
+    "Sem título 1.md",
+    "sedjAaW9y",
     "Pasted image 20250531144341.png",
     "output.png",
     "Pasted image 20250529154606.png",
